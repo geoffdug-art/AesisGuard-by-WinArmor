@@ -1,0 +1,5 @@
+{
+  "name": "WinArmor: Advanced Security Command Center",
+  "description": "A comprehensive security dashboard that orchestrates Windows' built-in security tools, manages domain blacklists, and provides real-time threat intelligence through advanced AI scanning simulations.",
+  "requestFramePermissions": []
+}
