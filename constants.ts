@@ -4,7 +4,7 @@ export const AEGIS_INFO = {
   "api_status": "success",
   "data": {
     "app_info": {
-      "name": "aesis.gd",
+      "name": "a.gd",
       "version": "4.5.5-stable",
       "developer": "WinArmor Labs",
       "established": "2018",
@@ -48,6 +48,14 @@ export const AEGIS_INFO = {
 
 export const WINDOWS_TOOLS: WindowsTool[] = [
   {
+    id: 'defender-app',
+    name: 'DEFENDER ANTIVIRUS',
+    command: 'defender.exe',
+    description: 'Full Windows Defender security interface for real-time monitoring and definition updates.',
+    category: 'Defender',
+    hiddenLevel: 'Medium'
+  },
+  {
     id: 'mrt',
     name: 'Malicious Software Removal Tool',
     command: 'mrt.exe',
@@ -70,6 +78,14 @@ export const WINDOWS_TOOLS: WindowsTool[] = [
     description: 'Scans old quarantine folders from legacy AVs (Norton, McAfee, etc) to ensure no leaks or dormant threats remain.',
     category: 'System',
     hiddenLevel: 'High'
+  },
+  {
+    id: 'resmon',
+    name: 'Resource Monitor',
+    command: 'resmon.exe',
+    description: 'Real-time performance tool to track memory, CPU, and disk usage for identifying malware behavior.',
+    category: 'System',
+    hiddenLevel: 'Low'
   },
   {
     id: 'sfc',

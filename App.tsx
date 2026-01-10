@@ -276,7 +276,7 @@ const App: React.FC = () => {
           100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          animation: marquee 120s linear infinite;
+          animation: marquee 60s linear infinite;
         }
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
@@ -393,12 +393,12 @@ const App: React.FC = () => {
                 Aesis.Native / <span className="text-white">{activeTab}</span>
               </h2>
 
-              <div className={`flex items-center gap-3 px-4 py-2 rounded-full border text-[11px] font-black uppercase tracking-widest transition-all ${
-                subscription.isActive ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400 shadow-lg shadow-cyan-900/20' : 'bg-amber-500/10 border-amber-500/30 text-amber-500'
-              }`}>
-                <div className={`w-2 h-2 rounded-full animate-pulse ${subscription.isActive ? 'bg-cyan-400' : 'bg-amber-400'}`}></div>
-                {subscription.isActive ? 'Pro Enforcement' : 'Standard Protection'}
-              </div>
+              {subscription.isActive && (
+                <div className="flex items-center gap-3 px-4 py-2 rounded-full border text-[11px] font-black uppercase tracking-widest transition-all bg-cyan-500/10 border-cyan-500/30 text-cyan-400 shadow-lg shadow-cyan-900/20">
+                  <div className="w-2 h-2 rounded-full animate-pulse bg-cyan-400"></div>
+                  Pro Enforcement
+                </div>
+              )}
             </div>
 
             <div className="flex items-center gap-6">
@@ -610,10 +610,10 @@ const ToolCard = ({ tool, isLocked, onRun, demoTokens }: any) => (
       <button 
         onClick={onRun}
         className={`w-full py-3.5 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 active:scale-95 ${
-          isLocked ? 'bg-white/5 text-gray-600 border border-white/5 grayscale cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-xl hover:shadow-blue-500/20'
+          isLocked ? 'bg-white/5 text-gray-600 border border-white/5 grayscale cursor-not-allowed' : 'bg-gradient-to-r from-amber-500 to-orange-600 text-black shadow-xl hover:shadow-amber-500/20 shadow-amber-900/10 border border-amber-500/20'
         }`}
       >
-        {isLocked ? <Lock className="w-3.5 h-3.5" /> : <Zap className="w-3.5 h-3.5 fill-current text-yellow-300" />}
+        {isLocked ? <Lock className="w-3.5 h-3.5" /> : <Zap className="w-3.5 h-3.5 fill-current" />}
         {isLocked ? 'Upgrade Required' : 'Execute'}
       </button>
     </div>
