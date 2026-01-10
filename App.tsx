@@ -601,7 +601,7 @@ const ToolCard = ({ tool, isLocked, onRun, demoTokens }: any) => (
     <div>
       <div className="flex justify-between items-start mb-4">
         <h3 className="font-black text-white text-[13px] uppercase tracking-tight leading-tight max-w-[80%] group-hover:text-blue-400 transition-colors">{tool.name}</h3>
-        {!isLocked && demoTokens > 0 && <div className="text-[8px] font-black px-2 py-1 rounded-lg bg-blue-600 text-white uppercase tracking-widest shadow-lg">Free Run</div>}
+        {!isLocked && demoTokens > 0 && <div className="text-[8px] font-black px-2 py-1 rounded-lg bg-blue-600 text-white uppercase tracking-widest shadow-[0_0_10px_rgba(249,115,22,0.4)] border border-orange-500/60 transition-all group-hover:shadow-orange-500/60">Free Run</div>}
       </div>
       <p className="text-[11px] text-gray-500 font-bold leading-relaxed mb-6 line-clamp-3">{tool.description}</p>
     </div>
