@@ -1,4 +1,3 @@
-
 import { WindowsTool } from './types';
 
 export const AEGIS_INFO = {
@@ -6,7 +5,7 @@ export const AEGIS_INFO = {
   "data": {
     "app_info": {
       "name": "aesis.gd",
-      "version": "4.5.2-stable",
+      "version": "4.5.5-stable",
       "developer": "WinArmor Labs",
       "established": "2018",
       "tagline": "Real-time defense for a boundaryless world."
@@ -17,7 +16,7 @@ export const AEGIS_INFO = {
     },
     "technical_background": {
       "engine_architecture": "Multi-layered: Signature-based, Heuristic, and AI-driven Behavioral Analysis.",
-      "database_size": "450M+ known threat signatures",
+      "database_size": "512M+ known threat signatures",
       "cloud_sync_frequency": "Every 15 minutes",
       "supported_environments": [
         "Android 10+",
@@ -54,6 +53,22 @@ export const WINDOWS_TOOLS: WindowsTool[] = [
     command: 'mrt.exe',
     description: 'A post-infection removal tool that helps identify and remove specific, prevalent malicious software.',
     category: 'Defender',
+    hiddenLevel: 'High'
+  },
+  {
+    id: 'adwcleaner',
+    name: 'AdwCleaner Browser Shield',
+    command: 'adwcleaner.exe',
+    description: 'Specialized scanner for Adware, PUPs (Potentially Unwanted Programs), and browser hijackers.',
+    category: 'Network',
+    hiddenLevel: 'Medium'
+  },
+  {
+    id: 'quarantine-check',
+    name: 'Legacy Quarantine Integrity',
+    command: 'check-quarantine.cmd',
+    description: 'Scans old quarantine folders from legacy AVs (Norton, McAfee, etc) to ensure no leaks or dormant threats remain.',
+    category: 'System',
     hiddenLevel: 'High'
   },
   {
