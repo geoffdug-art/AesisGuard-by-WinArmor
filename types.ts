@@ -1,4 +1,3 @@
-
 export interface WindowsTool {
   id: string;
   name: string;
@@ -14,6 +13,11 @@ export interface Threat {
   severity: 'Critical' | 'High' | 'Medium';
   lastSeen: string;
   description: string;
+  origin: {
+    country: string;
+    lat: number;
+    lng: number;
+  };
 }
 
 export interface BlacklistedDomain {
@@ -37,4 +41,21 @@ export interface SubscriptionInfo {
   tier: SubscriptionTier;
   expiryDate: string | null;
   isActive: boolean;
+}
+
+export interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  category: string;
+  description: string;
+}
+
+export interface Transaction {
+  id: string;
+  amount: number;
+  status: 'pending' | 'analyzing' | 'completed' | 'flagged';
+  fraudScore: number;
+  items: CartItem[];
 }

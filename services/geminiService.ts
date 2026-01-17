@@ -2,14 +2,18 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Threat } from "../types";
 
-// Always use const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
+// Always use { apiKey: process.env.API_KEY } for initialization
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
+/**
+ * Fetches the latest security threats using Gemini.
+ * Uses gemini-3-pro-preview for high-quality reasoning and identification.
+ */
 export const getLatestThreats = async (): Promise<Threat[]> => {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: "Identify the top 8 most significant emerging malware, trojans, or spyware threats of the current month. Include their names, types, a short description, and severity (Critical, High, Medium).",
+      model: "gemini-3-pro-preview",
+      contents: "Identify the top 8 most significant emerging malware, trojans, or spyware threats of the current month. For each threat, provide: name, type (Malware, Trojan, Spyware, Ransomware), a short description, severity (Critical, High, Medium), lastSeen date, and its primary geographic origin including country name and approximate latitude/longitude coordinates.",
       config: {
         responseMimeType: "application/json",
         responseSchema: {
@@ -21,15 +25,24 @@ export const getLatestThreats = async (): Promise<Threat[]> => {
               type: { type: Type.STRING },
               severity: { type: Type.STRING },
               description: { type: Type.STRING },
-              lastSeen: { type: Type.STRING }
+              lastSeen: { type: Type.STRING },
+              origin: {
+                type: Type.OBJECT,
+                properties: {
+                  country: { type: Type.STRING },
+                  lat: { type: Type.NUMBER },
+                  lng: { type: Type.NUMBER }
+                },
+                required: ["country", "lat", "lng"]
+              }
             },
-            required: ["name", "type", "severity", "description", "lastSeen"]
+            required: ["name", "type", "severity", "description", "lastSeen", "origin"]
           }
         }
       }
     });
 
-    // The GenerateContentResponse object features a text property (not a method).
+    // Use .text property to extract generated content
     const text = response.text?.trim();
     if (!text) return [];
     
@@ -45,13 +58,16 @@ export const getLatestThreats = async (): Promise<Threat[]> => {
   }
 };
 
+/**
+ * Analyzes security logs using Gemini.
+ */
 export const analyzeSecurityLog = async (log: string): Promise<string> => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Analyze this simulated security scan log and provide a professional security assessment in 3 bullet points: \n\n ${log}`,
     });
-    // The GenerateContentResponse object features a text property (not a method).
+    // Use .text property for the generated response
     return response.text || "Analysis unavailable.";
   } catch (error) {
     console.error("Error analyzing security log:", error);
