@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   Shield, 
@@ -116,31 +115,33 @@ const FileSystemScanner = ({ demoTokens, setDemoTokens, subscription, onUpgrade 
   };
 
   return (
-    <div className="bg-cyan-950/20 border-2 border-cyan-400 p-4 rounded-2xl flex flex-col gap-4 backdrop-blur-md hover:scale-[1.01] transition-all shadow-[0_0_50px_rgba(6,182,212,0.4)] ring-4 ring-cyan-500/20 relative overflow-hidden group">
+    <div className="bg-cyan-950/20 border-2 border-cyan-400 p-4 rounded-2xl flex flex-col gap-4 backdrop-blur-md hover:scale-[1.01] transition-all shadow-[0_0_50px_rgba(6,182,212,0.4)] ring-4 ring-cyan-500/20 relative overflow-hidden group min-h-[160px] justify-between">
       {/* Animated Scan Line decoration */}
       <div className="absolute inset-0 opacity-15 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-[scan_2s_linear_infinite]"></div>
       </div>
       
-      <div className="flex items-center justify-between relative z-10">
-        <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-xl bg-cyan-400 text-black ${isScanning ? 'animate-pulse' : ''} shadow-[0_0_15px_rgba(34,211,238,0.8)]`}>
-             <Search className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="text-[9px] font-black uppercase text-cyan-300 tracking-[0.15em] mb-0.5">Primary Heuristic</div>
-            <div className="text-sm font-black text-white flex items-center gap-2">
-              FS SCANNER
-              {!subscription.isActive && (
-                <span className="text-[8px] bg-black/50 px-1.5 py-0.5 rounded border border-cyan-400/40 text-cyan-400 font-bold">
-                  {demoTokens} GOES LEFT
-                </span>
-              )}
+      <div className="relative z-10 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className={`p-2 rounded-xl bg-cyan-400 text-black ${isScanning ? 'animate-pulse' : ''} shadow-[0_0_15px_rgba(34,211,238,0.8)]`}>
+              <Search className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-[9px] font-black uppercase text-cyan-300 tracking-[0.15em] mb-0.5">Primary Heuristic</div>
+              <div className="text-sm font-black text-white flex items-center gap-2">
+                SEARCH DIRECTORY
+                {!subscription.isActive && (
+                  <span className="text-[8px] bg-black/50 px-1.5 py-0.5 rounded border border-cyan-400/40 text-cyan-400 font-bold">
+                    {demoTokens} GOES LEFT
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          {/* Fix: Consolidated input attributes to prevent duplicate JSX attribute error on line 210 */}
+
+        <div className="flex gap-2 relative z-10">
           <input 
             type="file" 
             ref={fileInputRef} 
@@ -155,15 +156,17 @@ const FileSystemScanner = ({ demoTokens, setDemoTokens, subscription, onUpgrade 
           <button 
             onClick={handleBrowse}
             disabled={isScanning}
-            className="px-3 py-1.5 bg-black/40 hover:bg-black/60 text-cyan-400 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all disabled:opacity-30 border border-cyan-400/30"
+            className="flex-1 px-3 py-2 bg-black/40 hover:bg-black/60 text-cyan-400 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all disabled:opacity-30 border border-cyan-400/30 flex items-center justify-center gap-2"
           >
+            <FolderOpen className="w-3 h-3" />
             Browse
           </button>
           <button 
             onClick={startScan}
             disabled={isScanning || !targetName}
-            className="px-4 py-1.5 bg-cyan-400 hover:bg-cyan-300 text-black rounded-lg text-[9px] font-black uppercase tracking-widest transition-all disabled:opacity-30 shadow-[0_0_15px_rgba(34,211,238,0.5)] font-black"
+            className="flex-[1.5] px-4 py-2 bg-cyan-400 hover:bg-cyan-300 text-black rounded-lg text-[9px] font-black uppercase tracking-widest transition-all disabled:opacity-30 shadow-[0_0_15px_rgba(34,211,238,0.5)] font-black flex items-center justify-center gap-2"
           >
+            <Zap className="w-3 h-3 fill-current" />
             {isScanning ? 'Scanning' : 'Execute'}
           </button>
         </div>
@@ -208,7 +211,8 @@ const LogoAnimated = () => {
       <div className="relative z-10 w-16 h-16 drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-transform duration-500 group-hover:scale-110">
         <svg viewBox="0 0 100 120" className="w-full h-full filter drop-shadow-lg">
           <defs>
-            <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" x2="100%">
+            {/* Fix: Line 115 below had duplicate 'x2' attributes; corrected second x2 to y2 */}
+            <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%">
               <stop offset="0%" stopColor="#60a5fa" />
               <stop offset="100%" stopColor="#1d4ed8" />
             </linearGradient>
@@ -886,6 +890,7 @@ interface ToolCardProps {
   isLocked: boolean;
   onRun: () => void | Promise<void>;
   demoTokens: number;
+  key?: React.Key;
 }
 
 const ToolCard = ({ tool, isLocked, onRun, demoTokens }: ToolCardProps) => (
